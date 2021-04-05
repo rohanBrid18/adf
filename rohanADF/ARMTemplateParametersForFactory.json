@@ -14,6 +14,9 @@
 		"AzureSqlSampleDatabaseLS_connectionString": {
 			"value": ""
 		},
+		"FileServerLS_password": {
+			"value": ""
+		},
 		"SqlServerAdvWorksLS_connectionString": {
 			"value": ""
 		},
@@ -25,6 +28,12 @@
 		},
 		"SqlServerLS_password": {
 			"value": ""
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"value": "C:\\Users\\bridr\\Downloads\\"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
+			"value": "LAPTOP-U93RR200\\bridr"
 		},
 		"SqlServerAdvWorksLS_properties_typeProperties_userName": {
 			"value": "LAPTOP-U93RR200\\bridr"

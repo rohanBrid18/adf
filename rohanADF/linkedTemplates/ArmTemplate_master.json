@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlSampleDatabaseLS'"
 		},
+		"FileServerLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServerLS'"
+		},
 		"SqlServerAdvWorksLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerAdvWorksLS'"
@@ -34,6 +38,14 @@
 		"SqlServerLS_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerLS'"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\Users\\bridr\\Downloads\\"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "LAPTOP-U93RR200\\bridr"
 		},
 		"SqlServerAdvWorksLS_properties_typeProperties_userName": {
 			"type": "string",
@@ -79,6 +91,9 @@
 					"AzureSqlSampleDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSqlSampleDatabaseLS_connectionString')]"
 					},
+					"FileServerLS_password": {
+						"value": "[parameters('FileServerLS_password')]"
+					},
 					"SqlServerAdvWorksLS_connectionString": {
 						"value": "[parameters('SqlServerAdvWorksLS_connectionString')]"
 					},
@@ -90,6 +105,12 @@
 					},
 					"SqlServerLS_password": {
 						"value": "[parameters('SqlServerLS_password')]"
+					},
+					"FileServerLS_properties_typeProperties_host": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
+					},
+					"FileServerLS_properties_typeProperties_userId": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
 					},
 					"SqlServerAdvWorksLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerAdvWorksLS_properties_typeProperties_userName')]"
