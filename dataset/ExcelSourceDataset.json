@@ -1,0 +1,19 @@
+{
+	"name": "ExcelSourceDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServerLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "SalesData.xlsx"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	}
+}

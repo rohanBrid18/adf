@@ -1,0 +1,24 @@
+{
+	"name": "AzureSqlTableDestinationDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlSampleDatabaseLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesData",
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
