@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "rohanADF"
+		},
+		"AzureBlobStorageLS_connectionString": {
+			"value": ""
+		},
+		"AzureSQLDatabaseLS_connectionString": {
+			"value": ""
+		},
+		"AzureSqlSampleDatabaseLS_connectionString": {
+			"value": ""
+		},
+		"SqlServerAdvWorksLS_connectionString": {
+			"value": ""
+		},
+		"SqlServerAdvWorksLS_password": {
+			"value": ""
+		},
+		"SqlServerLS_connectionString": {
+			"value": ""
+		},
+		"SqlServerLS_password": {
+			"value": ""
+		},
+		"SqlServerAdvWorksLS_properties_typeProperties_userName": {
+			"value": "LAPTOP-U93RR200\\bridr"
+		},
+		"SqlServerLS_properties_typeProperties_userName": {
+			"value": "LAPTOP-U93RR200\\bridr"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
