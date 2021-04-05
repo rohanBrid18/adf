@@ -91,7 +91,13 @@
 							"outputs": [
 								{
 									"referenceName": "AzureSqlTableDeparmentDestinationDataset",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "@item().Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
