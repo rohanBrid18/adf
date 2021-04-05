@@ -1,0 +1,17 @@
+{
+	"name": "SqlServerAdvWorksLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=LAPTOP-U93RR200\\ROHAN;initial catalog=AdventureWorks2012",
+			"userName": "LAPTOP-U93RR200\\bridr",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzNWY4MTc1Ny03ZGVlLTRjZmUtOGVmZi01NzBkMTJhNzA3NWYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "onPremiseDemoIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
