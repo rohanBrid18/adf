@@ -1,9 +1,9 @@
 {
-	"name": "CopySQLDBToBlob",
+	"name": "CopyFromOnPremiseSQLToAzureSQL",
 	"properties": {
 		"activities": [
 			{
-				"name": "Iterate through SQL DB",
+				"name": "Iterate through each table",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -14,7 +14,7 @@
 					},
 					"activities": [
 						{
-							"name": "Copy data from SQL DB to Storage Blob",
+							"name": "Copy data from OnPremise SQL to Azure SQL",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -27,7 +27,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AzureSqlSource",
+									"type": "SqlServerSource",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -54,7 +54,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "AzureSQLDBSourceDataset",
+									"referenceName": "SqlServerTableSourceDataset",
 									"type": "DatasetReference",
 									"parameters": {
 										"TableName": {
@@ -81,7 +81,7 @@
 			}
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-04-05T06:35:25Z"
+		"lastPublishTime": "2021-04-05T09:34:48Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
