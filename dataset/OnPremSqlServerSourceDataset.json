@@ -3,10 +3,40 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SqlServerParameterizedLS",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().servername",
+					"type": "Expression"
+				},
+				"DatabaseName": {
+					"value": "@dataset().databasename",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().username",
+					"type": "Expression"
+				},
+				"Password": {
+					"value": "@dataset().password",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"TableName": {
+				"type": "string"
+			},
+			"servername": {
+				"type": "string"
+			},
+			"databasename": {
+				"type": "string"
+			},
+			"username": {
+				"type": "string"
+			},
+			"password": {
 				"type": "string"
 			}
 		},
