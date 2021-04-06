@@ -1,0 +1,31 @@
+{
+	"name": "SqlServerParameterizedLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"ServerName": {
+				"type": "String"
+			},
+			"DatabaseName": {
+				"type": "String"
+			},
+			"UserName": {
+				"type": "String"
+			},
+			"Password": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=True;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DatabaseName}",
+			"userName": "@{linkedService().UserName}",
+			"password": "@{linkedService().Password}"
+		},
+		"connectVia": {
+			"referenceName": "onPremIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
