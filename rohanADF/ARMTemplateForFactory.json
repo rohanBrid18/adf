@@ -527,6 +527,124 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/OnPremiseSQLToAzureSQL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iterate through table list",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.TableList",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data from OnPremise SQL to Azure SQL",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "SqlServerSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"tableOption": "autoCreate"
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "OnPremSqlServerSourceDataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": {
+													"value": "@item().name",
+													"type": "Expression"
+												},
+												"servername": {
+													"value": "@pipeline().parameters.Servername",
+													"type": "Expression"
+												},
+												"databasename": {
+													"value": "@pipeline().parameters.Databasename",
+													"type": "Expression"
+												},
+												"username": {
+													"value": "@pipeline().parameters.Username",
+													"type": "Expression"
+												},
+												"password": {
+													"value": "@pipeline().parameters.Password",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "AzureSqlDestinationDataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"TableList": {
+						"type": "array"
+					},
+					"Servername": {
+						"type": "string"
+					},
+					"Databasename": {
+						"type": "string"
+					},
+					"Username": {
+						"type": "string"
+					},
+					"Password": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/OnPremSqlServerSourceDataset')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlDestinationDataset')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SCD DataFlow Pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -597,6 +715,35 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSQLDatabaseLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDestinationDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlEmptyDBLS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "Sales",
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlEmptyDBLS')]"
 			]
 		},
 		{
@@ -862,6 +1009,65 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/OnPremSqlServerSourceDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerParameterizedLS",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ServerName": {
+							"value": "@dataset().servername",
+							"type": "Expression"
+						},
+						"DatabaseName": {
+							"value": "@dataset().databasename",
+							"type": "Expression"
+						},
+						"UserName": {
+							"value": "@dataset().username",
+							"type": "Expression"
+						},
+						"Password": {
+							"value": "@dataset().password",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					},
+					"servername": {
+						"type": "string"
+					},
+					"databasename": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "Sales",
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServerParameterizedLS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerAdvWorksSoucrDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1089,6 +1295,51 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerParameterizedLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"ServerName": {
+						"type": "String"
+					},
+					"DatabaseName": {
+						"type": "String"
+					},
+					"UserName": {
+						"type": "String"
+					},
+					"Password": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('SqlServerParameterizedLS_connectionString')]",
+					"userName": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]",
+					"password": "@{linkedService().Password}"
+				},
+				"connectVia": {
+					"referenceName": "onPremIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/onPremIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/onPremIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SCD DataFlow')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1143,200 +1394,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlSampleDBSourceDataset')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlDimCustomerSourceDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/onPremIntegrationRuntime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerParameterizedLS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"parameters": {
-					"ServerName": {
-						"type": "String"
-					},
-					"DatabaseName": {
-						"type": "String"
-					},
-					"UserName": {
-						"type": "String"
-					},
-					"Password": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SqlServerParameterizedLS_connectionString')]",
-					"userName": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]",
-					"password": "@{linkedService().Password}"
-				},
-				"connectVia": {
-					"referenceName": "onPremIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/onPremIntegrationRuntime')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/OnPremiseSQLToAzureSQL')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Iterate through table list",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.TableList",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "Copy data from OnPremise SQL to Azure SQL",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "SqlServerSource",
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"tableOption": "autoCreate"
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "OnPremSqlServerSourceDataset",
-											"type": "DatasetReference",
-											"parameters": {
-												"TableName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "AzureSqlDestinationDataset",
-											"type": "DatasetReference",
-											"parameters": {
-												"TableName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"parameters": {
-					"TableList": {
-						"type": "array"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/OnPremSqlServerSourceDataset')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlDestinationDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/OnPremSqlServerSourceDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServerParameterizedLS",
-					"type": "LinkedServiceReference",
-					"parameters": {}
-				},
-				"parameters": {
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "Sales",
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServerParameterizedLS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDestinationDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlEmptyDBLS",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "Sales",
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlEmptyDBLS')]"
 			]
 		}
 	]

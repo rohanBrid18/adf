@@ -454,6 +454,63 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/OnPremSqlServerSourceDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerParameterizedLS",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ServerName": {
+							"value": "@dataset().servername",
+							"type": "Expression"
+						},
+						"DatabaseName": {
+							"value": "@dataset().databasename",
+							"type": "Expression"
+						},
+						"UserName": {
+							"value": "@dataset().username",
+							"type": "Expression"
+						},
+						"Password": {
+							"value": "@dataset().password",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					},
+					"servername": {
+						"type": "string"
+					},
+					"databasename": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "Sales",
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SCD DataFlow')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -506,78 +563,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/OnPremSqlServerSourceDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServerParameterizedLS",
-					"type": "LinkedServiceReference",
-					"parameters": {}
-				},
-				"parameters": {
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "Sales",
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SCD DataFlow Pipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "SCD DataFlow",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "SCD DataFlow",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SalesLTCustomer": {},
-									"DimCustomer": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/SCD DataFlow')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/OnPremiseSQLToAzureSQL')]",
@@ -636,6 +621,22 @@
 												"TableName": {
 													"value": "@item().name",
 													"type": "Expression"
+												},
+												"servername": {
+													"value": "@pipeline().parameters.Servername",
+													"type": "Expression"
+												},
+												"databasename": {
+													"value": "@pipeline().parameters.Databasename",
+													"type": "Expression"
+												},
+												"username": {
+													"value": "@pipeline().parameters.Username",
+													"type": "Expression"
+												},
+												"password": {
+													"value": "@pipeline().parameters.Password",
+													"type": "Expression"
 												}
 											}
 										}
@@ -660,12 +661,68 @@
 				"parameters": {
 					"TableList": {
 						"type": "array"
+					},
+					"Servername": {
+						"type": "string"
+					},
+					"Databasename": {
+						"type": "string"
+					},
+					"Username": {
+						"type": "string"
+					},
+					"Password": {
+						"type": "string"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/OnPremSqlServerSourceDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SCD DataFlow Pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SCD DataFlow",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "SCD DataFlow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"SalesLTCustomer": {},
+									"DimCustomer": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/SCD DataFlow')]"
 			]
 		}
 	]
