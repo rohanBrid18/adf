@@ -6,18 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"servername": {
-				"type": "String"
-			},
-			"databasename": {
-				"type": "String"
-			},
-			"username": {
-				"type": "String"
-			},
-			"password": {
-				"type": "String"
-			},
 			"TableName": {
 				"type": "string"
 			}
