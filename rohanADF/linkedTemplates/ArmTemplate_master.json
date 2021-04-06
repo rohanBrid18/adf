@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSQLDatabaseLS'"
 		},
+		"AzureSqlEmptyDBLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlEmptyDBLS'"
+		},
 		"AzureSqlSampleDatabaseLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlSampleDatabaseLS'"
@@ -88,6 +92,9 @@
 					"AzureSQLDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSQLDatabaseLS_connectionString')]"
 					},
+					"AzureSqlEmptyDBLS_connectionString": {
+						"value": "[parameters('AzureSqlEmptyDBLS_connectionString')]"
+					},
 					"AzureSqlSampleDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSqlSampleDatabaseLS_connectionString')]"
 					},
@@ -121,6 +128,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "rohanADF_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'rohanADF_ArmTemplate_0')]"
+			]
 		}
 	]
 }

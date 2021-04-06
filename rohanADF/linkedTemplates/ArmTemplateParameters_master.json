@@ -11,6 +11,9 @@
 		"AzureSQLDatabaseLS_connectionString": {
 			"value": ""
 		},
+		"AzureSqlEmptyDBLS_connectionString": {
+			"value": ""
+		},
 		"AzureSqlSampleDatabaseLS_connectionString": {
 			"value": ""
 		},
