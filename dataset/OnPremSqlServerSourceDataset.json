@@ -1,0 +1,36 @@
+{
+	"name": "OnPremSqlServerSourceDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerParameterizedLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"servername": {
+				"type": "String"
+			},
+			"databasename": {
+				"type": "String"
+			},
+			"username": {
+				"type": "String"
+			},
+			"password": {
+				"type": "String"
+			},
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
