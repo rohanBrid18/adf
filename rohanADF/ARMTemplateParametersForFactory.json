@@ -32,6 +32,9 @@
 		"SqlServerLS_password": {
 			"value": ""
 		},
+		"SqlServerParameterizedLS_connectionString": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "C:\\Users\\bridr\\Downloads\\"
 		},
@@ -43,6 +46,9 @@
 		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"value": "LAPTOP-U93RR200\\bridr"
+		},
+		"SqlServerParameterizedLS_properties_typeProperties_userName": {
+			"value": "@{linkedService().UserName}"
 		}
 	}
 }

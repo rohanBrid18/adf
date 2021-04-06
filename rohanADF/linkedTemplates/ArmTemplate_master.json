@@ -43,6 +43,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerLS'"
 		},
+		"SqlServerParameterizedLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerParameterizedLS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "C:\\Users\\bridr\\Downloads\\"
@@ -58,6 +62,10 @@
 		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "LAPTOP-U93RR200\\bridr"
+		},
+		"SqlServerParameterizedLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "@{linkedService().UserName}"
 		},
 		"containerUri": {
 			"type": "string",
@@ -113,6 +121,9 @@
 					"SqlServerLS_password": {
 						"value": "[parameters('SqlServerLS_password')]"
 					},
+					"SqlServerParameterizedLS_connectionString": {
+						"value": "[parameters('SqlServerParameterizedLS_connectionString')]"
+					},
 					"FileServerLS_properties_typeProperties_host": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
 					},
@@ -124,6 +135,9 @@
 					},
 					"SqlServerLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
+					},
+					"SqlServerParameterizedLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
