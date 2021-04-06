@@ -43,9 +43,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerLS'"
 		},
-		"SqlServerParameterizedLS_connectionString": {
+		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServerParameterizedLS'"
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreGen1LS'"
 		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
@@ -63,9 +63,25 @@
 			"type": "string",
 			"defaultValue": "LAPTOP-U93RR200\\bridr"
 		},
-		"SqlServerParameterizedLS_properties_typeProperties_userName": {
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
 			"type": "string",
-			"defaultValue": "@{linkedService().UserName}"
+			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "RohanRG"
 		}
 	},
 	"variables": {
@@ -185,6 +201,27 @@
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStoreGen1LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri')]",
+					"servicePrincipalId": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStoreGen1LS_servicePrincipalKey')]"
+					},
+					"tenant": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName')]"
+				}
 			},
 			"dependsOn": []
 		},
@@ -627,41 +664,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SqlServerLS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerParameterizedLS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"parameters": {
-					"ServerName": {
-						"type": "String"
-					},
-					"DatabaseName": {
-						"type": "String"
-					},
-					"UserName": {
-						"type": "String"
-					},
-					"Password": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SqlServerParameterizedLS_connectionString')]",
-					"userName": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]",
-					"password": "@{linkedService().Password}"
-				},
-				"connectVia": {
-					"referenceName": "onPremIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/onPremIntegrationRuntime')]"
 			]
 		}
 	]

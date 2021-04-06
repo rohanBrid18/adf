@@ -47,6 +47,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerParameterizedLS'"
 		},
+		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreGen1LS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "C:\\Users\\bridr\\Downloads\\"
@@ -66,6 +70,26 @@
 		"SqlServerParameterizedLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "@{linkedService().UserName}"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "RohanRG"
 		}
 	},
 	"variables": {
@@ -1394,6 +1418,188 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlSampleDBSourceDataset')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlDimCustomerSourceDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OnPremiseSQLToADLSGen1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.TableList",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "SqlServerSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureDataLakeStoreWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".csv"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "OnPremSqlServerSourceDataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": {
+													"value": "@item().name",
+													"type": "Expression"
+												},
+												"servername": {
+													"value": "@pipeline().parameters.Servername",
+													"type": "Expression"
+												},
+												"databasename": {
+													"value": "@pipeline().parameters.Databasename",
+													"type": "Expression"
+												},
+												"username": {
+													"value": "@pipeline().parameters.Username",
+													"type": "Expression"
+												},
+												"password": {
+													"value": "@pipeline().parameters.Password",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DelimitedTextADLSDestinationDataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"TableList": {
+						"type": "array"
+					},
+					"Servername": {
+						"type": "string"
+					},
+					"Databasename": {
+						"type": "string"
+					},
+					"Username": {
+						"type": "string"
+					},
+					"Password": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/OnPremSqlServerSourceDataset')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedTextADLSDestinationDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStoreGen1LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri')]",
+					"servicePrincipalId": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStoreGen1LS_servicePrincipalKey')]"
+					},
+					"tenant": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedTextADLSDestinationDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStoreGen1LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureDataLakeStoreLocation",
+						"fileName": {
+							"value": "@dataset().TableName",
+							"type": "Expression"
+						},
+						"folderPath": "adfData"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStoreGen1LS')]"
 			]
 		}
 	]
