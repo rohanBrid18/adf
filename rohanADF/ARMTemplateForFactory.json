@@ -924,7 +924,7 @@
 										"source": {
 											"type": "SqlServerSource",
 											"sqlReaderQuery": {
-												"value": "select * from Production.Product where ProductSubcategoryID=@{item().SubcategoryID}",
+												"value": "select * from Production.Product where ProductSubcategoryID=@{item().ProductSubcategoryID}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
