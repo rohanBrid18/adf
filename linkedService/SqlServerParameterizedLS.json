@@ -22,10 +22,6 @@
 			"connectionString": "Integrated Security=True;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DatabaseName}",
 			"userName": "@{linkedService().UserName}",
 			"password": "@{linkedService().Password}"
-		},
-		"connectVia": {
-			"referenceName": "onPremIntegrationRuntime",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }

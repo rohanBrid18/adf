@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=True;data source=LAPTOP-U93RR200\\ROHAN;initial catalog=AdventureWorksDW2012",
+			"connectionString": "integrated security=True;data source=LAPTOP-U93RR200\\\\ROHAN;initial catalog=AdventureWorksDW2012",
 			"userName": "LAPTOP-U93RR200\\bridr",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5NGEzODU4MC0zODM2LTQ2NDYtODdjOC01YjE2Y2Q5NGI5ZmMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhM2IxNGIyZi0wYjY5LTRmZTQtOTk4Ni1hNTFmNmIyOWU4YjEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "OnPremiseIntegrationRuntime",

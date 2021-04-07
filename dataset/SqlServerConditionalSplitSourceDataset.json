@@ -133,5 +133,6 @@
 			"schema": "Production",
 			"table": "Product"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

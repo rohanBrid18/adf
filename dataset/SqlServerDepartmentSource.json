@@ -42,5 +42,6 @@
 			"schema": "HumanResources",
 			"table": "EmployeeDepartmentHistory"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

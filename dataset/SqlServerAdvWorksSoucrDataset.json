@@ -32,5 +32,6 @@
 			"schema": "HumanResources",
 			"table": "Department"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }
