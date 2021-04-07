@@ -25,7 +25,7 @@
 						"referenceName": "SqlServerConditionalSplitSourceDataset",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
