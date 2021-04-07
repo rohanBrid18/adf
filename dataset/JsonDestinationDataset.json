@@ -1,0 +1,18 @@
+{
+	"name": "JsonDestinationDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "conditionalsplitoutput"
+			}
+		},
+		"schema": {}
+	}
+}
