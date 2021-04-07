@@ -41,7 +41,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup for Colors').output.value",
+						"value": "@activity('Lookup for Colors').output",
 						"type": "Expression"
 					},
 					"activities": [
