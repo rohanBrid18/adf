@@ -24,7 +24,8 @@
 					"dataset": {
 						"referenceName": "SqlServerConditionalSplitSourceDataset",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -41,7 +42,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup for Colors').output",
+						"value": "@activity('Lookup for Colors').output.value",
 						"type": "Expression"
 					},
 					"activities": [
