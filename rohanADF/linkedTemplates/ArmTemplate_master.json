@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLS'"
 		},
+		"AzureDataLakeStorageGen2LS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageGen2LS'"
+		},
 		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreGen1LS'"
@@ -59,9 +63,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerParameterizedLS'"
 		},
-		"AzureDataLakeStorageGen2LS_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageGen2LS'"
+		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://rohanbridgen2.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
 			"type": "string",
@@ -103,10 +107,6 @@
 			"type": "string",
 			"defaultValue": "@{linkedService().UserName}"
 		},
-		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://rohanbridgen2.dfs.core.windows.net"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -140,6 +140,9 @@
 					"AzureBlobStorageLS_connectionString": {
 						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
 					},
+					"AzureDataLakeStorageGen2LS_accountKey": {
+						"value": "[parameters('AzureDataLakeStorageGen2LS_accountKey')]"
+					},
 					"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
 						"value": "[parameters('AzureDataLakeStoreGen1LS_servicePrincipalKey')]"
 					},
@@ -161,8 +164,8 @@
 					"SqlServerParameterizedLS_connectionString": {
 						"value": "[parameters('SqlServerParameterizedLS_connectionString')]"
 					},
-					"AzureDataLakeStorageGen2LS_accountKey": {
-						"value": "[parameters('AzureDataLakeStorageGen2LS_accountKey')]"
+					"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageGen2LS_properties_typeProperties_url')]"
 					},
 					"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
 						"value": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri')]"
@@ -187,9 +190,6 @@
 					},
 					"SqlServerParameterizedLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]"
-					},
-					"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorageGen2LS_properties_typeProperties_url')]"
 					}
 				}
 			},

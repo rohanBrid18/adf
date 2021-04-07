@@ -11,6 +11,9 @@
 		"AzureBlobStorageLS_connectionString": {
 			"value": ""
 		},
+		"AzureDataLakeStorageGen2LS_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
 			"value": ""
 		},
@@ -44,8 +47,8 @@
 		"SqlServerParameterizedLS_connectionString": {
 			"value": ""
 		},
-		"AzureDataLakeStorageGen2LS_accountKey": {
-			"value": ""
+		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
+			"value": "https://rohanbridgen2.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
 			"value": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
@@ -76,9 +79,6 @@
 		},
 		"SqlServerParameterizedLS_properties_typeProperties_userName": {
 			"value": "@{linkedService().UserName}"
-		},
-		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
-			"value": "https://rohanbridgen2.dfs.core.windows.net"
 		}
 	}
 }
