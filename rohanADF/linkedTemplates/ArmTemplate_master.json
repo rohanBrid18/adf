@@ -7,9 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "rohanADF"
 		},
+		"AzureBlobStorage1LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1LS'"
+		},
 		"AzureBlobStorageLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLS'"
+		},
+		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreGen1LS'"
 		},
 		"AzureSQLDatabaseLS_connectionString": {
 			"type": "secureString",
@@ -18,6 +26,10 @@
 		"AzureSqlEmptyDBLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlEmptyDBLS'"
+		},
+		"AzureSqlSampleDBLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlSampleDBLS'"
 		},
 		"AzureSqlSampleDatabaseLS_connectionString": {
 			"type": "secureString",
@@ -47,9 +59,29 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerParameterizedLS'"
 		},
-		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
+		"AzureDataLakeStorageGen2LS_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreGen1LS'"
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageGen2LS'"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "RohanRG"
 		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
@@ -71,25 +103,9 @@
 			"type": "string",
 			"defaultValue": "@{linkedService().UserName}"
 		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
+		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
-			"type": "string",
-			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
-			"type": "string",
-			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
-			"type": "string",
-			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
-			"type": "string",
-			"defaultValue": "RohanRG"
+			"defaultValue": "https://rohanbridgen2.dfs.core.windows.net"
 		},
 		"containerUri": {
 			"type": "string",
@@ -118,8 +134,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1LS_connectionString": {
+						"value": "[parameters('AzureBlobStorage1LS_connectionString')]"
+					},
 					"AzureBlobStorageLS_connectionString": {
 						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
+					},
+					"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
+						"value": "[parameters('AzureDataLakeStoreGen1LS_servicePrincipalKey')]"
 					},
 					"AzureSQLDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSQLDatabaseLS_connectionString')]"
@@ -127,38 +149,20 @@
 					"AzureSqlEmptyDBLS_connectionString": {
 						"value": "[parameters('AzureSqlEmptyDBLS_connectionString')]"
 					},
+					"AzureSqlSampleDBLS_connectionString": {
+						"value": "[parameters('AzureSqlSampleDBLS_connectionString')]"
+					},
 					"AzureSqlSampleDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSqlSampleDatabaseLS_connectionString')]"
 					},
 					"FileServerLS_password": {
 						"value": "[parameters('FileServerLS_password')]"
 					},
-					"SqlServerAdvWorksLS_connectionString": {
-						"value": "[parameters('SqlServerAdvWorksLS_connectionString')]"
+					"SqlServerParameterizedLS_connectionString": {
+						"value": "[parameters('SqlServerParameterizedLS_connectionString')]"
 					},
-					"SqlServerAdvWorksLS_password": {
-						"value": "[parameters('SqlServerAdvWorksLS_password')]"
-					},
-					"SqlServerLS_connectionString": {
-						"value": "[parameters('SqlServerLS_connectionString')]"
-					},
-					"SqlServerLS_password": {
-						"value": "[parameters('SqlServerLS_password')]"
-					},
-					"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
-						"value": "[parameters('AzureDataLakeStoreGen1LS_servicePrincipalKey')]"
-					},
-					"FileServerLS_properties_typeProperties_host": {
-						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
-					},
-					"FileServerLS_properties_typeProperties_userId": {
-						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
-					},
-					"SqlServerAdvWorksLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerAdvWorksLS_properties_typeProperties_userName')]"
-					},
-					"SqlServerLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
+					"AzureDataLakeStorageGen2LS_accountKey": {
+						"value": "[parameters('AzureDataLakeStorageGen2LS_accountKey')]"
 					},
 					"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
 						"value": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri')]"
@@ -174,6 +178,18 @@
 					},
 					"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName')]"
+					},
+					"FileServerLS_properties_typeProperties_host": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
+					},
+					"FileServerLS_properties_typeProperties_userId": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
+					},
+					"SqlServerParameterizedLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]"
+					},
+					"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageGen2LS_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -193,16 +209,48 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"SqlServerParameterizedLS_connectionString": {
-						"value": "[parameters('SqlServerParameterizedLS_connectionString')]"
+					"SqlServerAdvWorksLS_connectionString": {
+						"value": "[parameters('SqlServerAdvWorksLS_connectionString')]"
 					},
-					"SqlServerParameterizedLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerParameterizedLS_properties_typeProperties_userName')]"
+					"SqlServerAdvWorksLS_password": {
+						"value": "[parameters('SqlServerAdvWorksLS_password')]"
+					},
+					"SqlServerLS_connectionString": {
+						"value": "[parameters('SqlServerLS_connectionString')]"
+					},
+					"SqlServerLS_password": {
+						"value": "[parameters('SqlServerLS_password')]"
+					},
+					"SqlServerAdvWorksLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerAdvWorksLS_properties_typeProperties_userName')]"
+					},
+					"SqlServerLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'rohanADF_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "rohanADF_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'rohanADF_ArmTemplate_1')]"
 			]
 		}
 	]

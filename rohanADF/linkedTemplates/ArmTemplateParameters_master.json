@@ -5,13 +5,22 @@
 		"factoryName": {
 			"value": "rohanADF"
 		},
+		"AzureBlobStorage1LS_connectionString": {
+			"value": ""
+		},
 		"AzureBlobStorageLS_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
 			"value": ""
 		},
 		"AzureSQLDatabaseLS_connectionString": {
 			"value": ""
 		},
 		"AzureSqlEmptyDBLS_connectionString": {
+			"value": ""
+		},
+		"AzureSqlSampleDBLS_connectionString": {
 			"value": ""
 		},
 		"AzureSqlSampleDatabaseLS_connectionString": {
@@ -35,8 +44,23 @@
 		"SqlServerParameterizedLS_connectionString": {
 			"value": ""
 		},
-		"AzureDataLakeStoreGen1LS_servicePrincipalKey": {
+		"AzureDataLakeStorageGen2LS_accountKey": {
 			"value": ""
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
+			"value": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
+			"value": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
+			"value": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
+			"value": "RohanRG"
 		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "C:\\Users\\bridr\\Downloads\\"
@@ -53,20 +77,8 @@
 		"SqlServerParameterizedLS_properties_typeProperties_userName": {
 			"value": "@{linkedService().UserName}"
 		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_dataLakeStoreUri": {
-			"value": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_servicePrincipalId": {
-			"value": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_tenant": {
-			"value": "901abd5a-13f9-4364-8b4d-5347a7565325"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_subscriptionId": {
-			"value": "512f1323-720d-4e25-9570-3014c1c539a7"
-		},
-		"AzureDataLakeStoreGen1LS_properties_typeProperties_resourceGroupName": {
-			"value": "RohanRG"
+		"AzureDataLakeStorageGen2LS_properties_typeProperties_url": {
+			"value": "https://rohanbridgen2.dfs.core.windows.net"
 		},
 		"containerUri": {
 			"value": ""
