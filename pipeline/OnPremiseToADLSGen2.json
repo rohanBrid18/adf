@@ -25,7 +25,7 @@
 						"referenceName": "SqlServerConditionalSplitSourceDataset",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
@@ -97,7 +97,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"filename": {
-											"value": "@item().name",
+											"value": "@item().Color",
 											"type": "Expression"
 										}
 									}
