@@ -878,7 +878,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderQuery": "select Color from Production.Product",
+								"sqlReaderQuery": "select ProductSubcategoryID, Name from Production.ProductSubcategory",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -923,6 +923,10 @@
 									"typeProperties": {
 										"source": {
 											"type": "SqlServerSource",
+											"sqlReaderQuery": {
+												"value": "select * from Production.Product where ProductSubcategoryID=@{item().SubcategoryID}",
+												"type": "Expression"
+											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
@@ -960,7 +964,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"filename": {
-													"value": "@item().Color",
+													"value": "@item().Name",
 													"type": "Expression"
 												}
 											}
